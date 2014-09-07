@@ -13,6 +13,8 @@ RUN su plow
 # Switch to user directory
 RUN cd ~/
 
+RUN pwd
+
 # Install basic needed packages
 RUN sudo apt-get update
 RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
@@ -38,6 +40,6 @@ RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0
 RUN tar xvfz cabal.tar.gz
 RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
 RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
-ENV PATH /.cabal/bin:$PATH
+ENV PATH ~/.cabal/bin:$PATH
 
 CMD su plow
