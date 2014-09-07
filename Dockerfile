@@ -8,7 +8,7 @@ RUN adduser --disabled-password --gecos '' plow
 RUN adduser plow sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-USER plow
+RUN su plow
 
 # Switch to user directory
 RUN cd ~/
@@ -20,18 +20,18 @@ RUN sudo apt-get install -y freeglut3-dev wget ncurses-dev libcurl4-gnutls-dev g
 RUN sudo apt-get install -y libtool
 
 # Install libgmp3c2
-RUN sudo wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
+RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
 RUN sudo dpkg -i libgmp3c2_4.3.2*.deb
 
 # Install ghc7.8.3
-RUN sudo wget -O ghc.tar.bz2 http://www.haskell.org/ghc/dist/7.8.3/ghc-7.8.3-x86_64-unknown-linux-deb7.tar.bz2
+RUN wget -O ghc.tar.bz2 http://www.haskell.org/ghc/dist/7.8.3/ghc-7.8.3-x86_64-unknown-linux-deb7.tar.bz2
 RUN tar xvfj ghc.tar.bz2
 RUN cd ghc-7.8.3 && ./configure
 RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 
 # Install cabal1.20.0.1
-RUN sudo wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.1/cabal-install-1.20.0.1.tar.gz
+RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.1/cabal-install-1.20.0.1.tar.gz
 RUN tar xvfz cabal.tar.gz
 RUN cd cabal-install-1.20.0.1 && ./bootstrap.sh
 RUN rm -rf cabal-install-1.20.0.1 cabal.tar.gz
