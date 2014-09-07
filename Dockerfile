@@ -13,8 +13,6 @@ RUN su plow
 # Switch to user directory
 RUN cd ~/
 
-RUN pwd
-
 # Install basic needed packages
 RUN sudo apt-get update
 RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
@@ -34,6 +32,8 @@ RUN tar xvfj ghc.tar.bz2
 RUN cd ghc-7.8.3 && ./configure --prefix=/home/plow/.ghc-7.8.3-rc11 
 RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
+
+RUN export PATH=$PATH:$HOME/.ghc-7.8.3-rc11/bin:$PATH
 
 # Install cabal1.20.0.3
 RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
