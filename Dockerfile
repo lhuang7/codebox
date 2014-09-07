@@ -13,8 +13,14 @@ RUN su plow
 # Switch to user directory
 RUN cd ~/
 
+# Install basic needed packages
+RUN sudo apt-get update
+RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
+RUN sudo apt-get install -y freeglut3-dev wget ncurses-dev libcurl4-gnutls-dev git autoconf subversion 
+RUN sudo apt-get install -y libtool
+
 # Install other tool
-RUN sudo apt-get install -y git zsh
+RUN sudo apt-get install -y zsh
 RUN sudo curl -L http://install.ohmyz.sh | sh
 
 RUN sudo chsh -s $(which zsh)
@@ -24,12 +30,6 @@ RUN sudo su root
 RUN sudo su plow
 
 ADD ./.zshrc /home/plow/
-
-# Install basic needed packages
-RUN sudo apt-get update
-RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
-RUN sudo apt-get install -y freeglut3-dev wget ncurses-dev libcurl4-gnutls-dev git autoconf subversion 
-RUN sudo apt-get install -y libtool
 
 
 # Install libgmp3c2
