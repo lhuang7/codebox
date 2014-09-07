@@ -18,7 +18,7 @@ RUN sudo apt-get install -y libtool
 
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
-RUN dpkg -i libgmp3c2_4.3.2*.deb
+RUN sudo dpkg -i libgmp3c2_4.3.2*.deb
 
 # Install ghc7.8.3
 RUN wget -O ghc.tar.bz2 http://www.haskell.org/ghc/dist/7.8.3/ghc-7.8.3-x86_64-unknown-linux-deb7.tar.bz2
