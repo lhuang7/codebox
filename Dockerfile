@@ -32,7 +32,7 @@ RUN sudo apt-get install -y libtool
 # Install other tool
 RUN sudo apt-get install -y zsh
 RUN sudo chsh -s $(which zsh)
-RUN wget --no-check-certificate http://install.ohmyz.sh -O - | sh
+RUN sudo wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 ADD ./.zshrc /home/plow/
 RUN source ./.zshrc
 
