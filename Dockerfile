@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Add the base user
 RUN adduser --disabled-password --gecos '' plow
 RUN adduser plow sudo
-echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER plow
 
