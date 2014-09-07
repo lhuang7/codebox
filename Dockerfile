@@ -31,7 +31,7 @@ RUN sudo dpkg -i libgmp3c2_4.3.2*.deb
 # Install ghc7.8.3
 RUN wget -O ghc.tar.bz2 http://www.haskell.org/ghc/dist/7.8.3/ghc-7.8.3-x86_64-unknown-linux-deb7.tar.bz2
 RUN tar xvfj ghc.tar.bz2
-RUN cd ghc-7.8.3 && ./configure --prefix=~/.ghc-7.8.3-rc11 
+RUN cd ghc-7.8.3 && ./configure --prefix=/home/plow/.ghc-7.8.3-rc11 
 RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 
@@ -40,6 +40,6 @@ RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0
 RUN tar xvfz cabal.tar.gz
 RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
 RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
-ENV PATH ~/.cabal/bin:$PATH
+ENV PATH /home/plow/.cabal/bin:$PATH
 
 CMD su plow
