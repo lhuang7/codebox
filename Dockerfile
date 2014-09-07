@@ -3,9 +3,16 @@ FROM ubuntu:latest
 MAINTAINER lingpo.huang@plwotech.net
 ENV DEBIAN_FRONTEND noninteractive
 
+USER plow
+
+# Add the base user
+RUN adduser --disabled-password --gecos '' plow
+RUN adduser plow sudo
+echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 # Install basic needed packages
 RUN apt-get update
-RUN apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev 
+RUN apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
 RUN apt-get install -y freeglut3-dev wget ncurses-dev libcurl4-gnutls-dev git autoconf subversion 
 RUN apt-get install -y libtool
 
