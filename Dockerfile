@@ -4,7 +4,7 @@ MAINTAINER lingpo.huang@plwotech.net
 ENV DEBIAN_FRONTEND noninteractive
 
 # Add the base user
-RUN adduser --disabled-password --gecos '' plow
+RUN adduser --disabled-password --gecos '' -m plow
 RUN adduser plow sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
@@ -21,16 +21,14 @@ RUN sudo apt-get install -y libtool
 
 # Install other tool
 RUN sudo apt-get install -y zsh
-RUN wget --no-check-certificate http://install.ohmyz.sh -O - | sh
-
 RUN sudo chsh -s $(which zsh)
-
-RUN sudo su root
-
-RUN sudo su plow
-
+RUN wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 ADD ./.zshrc /home/plow/
+RUN source ./.zshrc
 
+# RUN sudo su root
+
+#RUN sudo su plow
 
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
