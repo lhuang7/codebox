@@ -10,6 +10,9 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER plow
 
+# Switch to user directory
+RUN cd ~/
+
 # Install basic needed packages
 RUN sudo apt-get update
 RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
@@ -33,3 +36,5 @@ RUN tar xvfz cabal.tar.gz
 RUN cd cabal-install-1.20.0.1 && ./bootstrap.sh
 RUN rm -rf cabal-install-1.20.0.1 cabal.tar.gz
 ENV PATH /.cabal/bin:$PATH
+
+CMD su plow
