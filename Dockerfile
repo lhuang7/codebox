@@ -4,11 +4,21 @@ MAINTAINER lingpo.huang@plwotech.net
 ENV DEBIAN_FRONTEND noninteractive
 
 # Add the base user
-RUN adduser --disabled-password --gecos '' -m plow
+RUN adduser --disabled-password --gecos '' plow
 RUN adduser plow sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN su plow
+
+RUN mkdir Desktop
+RUN mkdir Documents
+RUN mkdir Downloads
+RUN mkdir Music
+RUN mkdir Pictures
+RUN mkdir Videos
+RUN mkdir Public
+RUN mkdir Share
+RUN mkdir temp
 
 # Switch to user directory
 RUN cd ~/
