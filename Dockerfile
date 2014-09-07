@@ -1,4 +1,4 @@
-FROM ubuntu:lastest
+FROM ubuntu:latest
 
 MAINTAINER lingpo.huang@plwotech.net
 ENV DEBIAN_FRONTEND noninteractive
