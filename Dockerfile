@@ -11,10 +11,10 @@ echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER plow
 
 # Install basic needed packages
-RUN apt-get update
-RUN apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
-RUN apt-get install -y freeglut3-dev wget ncurses-dev libcurl4-gnutls-dev git autoconf subversion 
-RUN apt-get install -y libtool
+RUN sudo apt-get update
+RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
+RUN sudo apt-get install -y freeglut3-dev wget ncurses-dev libcurl4-gnutls-dev git autoconf subversion 
+RUN sudo apt-get install -y libtool
 
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
