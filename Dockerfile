@@ -39,7 +39,7 @@ RUN sudo apt-get install -y libtool
 RUN sudo apt-get install -y zsh
 RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /home/plow/.oh-my-zsh
 # RUN mv ~/.zshrc  ~/.zshrc.bkp
-RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+# RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sudo chsh -s $(which zsh) plow
 ADD ./.zshrc /home/plow/
 RUN zsh
