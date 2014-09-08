@@ -14,6 +14,10 @@ RUN su plow
 # Switch to user directory
 WORKDIR /home/plow
 
+ENV HOME /home/plow
+ 	
+ENV LC_ALL en_US.UTF8
+
 # Set up basic folders
 RUN mkdir Desktop
 RUN mkdir Documents
@@ -54,10 +58,10 @@ RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 RUN export PATH=$PATH:$HOME/.ghc-7.8.3-rc11/bin:$PATH
 
 # Install cabal1.20.0.3
-# RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
-# RUN tar xvfz cabal.tar.gz
-# RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
-# RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
-# ENV PATH /home/plow/.cabal/bin:$PATH
+RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
+RUN tar xvfz cabal.tar.gz
+RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
+RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
+ENV PATH /home/plow/.cabal/bin:$PATH
 
 CMD su plow
