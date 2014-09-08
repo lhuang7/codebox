@@ -37,7 +37,7 @@ RUN sudo apt-get install -y libtool
 
 # Install other tool
 RUN sudo apt-get install -y zsh
-RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+RUN git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 # RUN mv ~/.zshrc  ~/.zshrc.bkp
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sudo chsh -s $(which zsh) plow
@@ -56,13 +56,13 @@ RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 
 RUN export PATH=$PATH:$HOME/.ghc-7.8.3-rc11/bin:$PATH
-RUN source ~/.zshrc
-
+RUN source $HOME/.zshrc
+RUN ghc --version
 # Install cabal1.20.0.3
-RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
-RUN tar xvfz cabal.tar.gz
-RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
-RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
-ENV PATH /home/plow/.cabal/bin:$PATH
+#RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
+#RUN tar xvfz cabal.tar.gz
+#RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
+#RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
+#ENV PATH /home/plow/.cabal/bin:$PATH
 
 CMD su plow
