@@ -8,8 +8,13 @@ RUN adduser --disabled-password --gecos '' plow
 RUN adduser plow sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+# Switch to new User
 RUN su plow
 
+# Switch to user directory
+RUN cd /home/plow/
+
+# Set up basic folders
 RUN mkdir Desktop
 RUN mkdir Documents
 RUN mkdir Downloads
@@ -20,9 +25,6 @@ RUN mkdir Public
 RUN mkdir Share
 RUN mkdir temp
 
-# Switch to user directory
-RUN cd ~/
-
 # Install basic needed packages
 RUN sudo apt-get update
 RUN sudo apt-get install -y build-essential libedit2 libglu1-mesa-dev libgmp3-dev zlib1g-dev curl
@@ -32,12 +34,10 @@ RUN sudo apt-get install -y libtool
 # Install other tool
 RUN sudo apt-get install -y zsh
 RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-# RUN mv ~/.zshrc  ~/.zshrc.bkp
-RUN pwd
+RUN mv ~/.zshrc  ~/.zshrc.bkp
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-RUN sudo chsh -s $(which zsh)
+RUN sudo chsh -s $(which zsh) plow
 ADD ./.zshrc /home/plow/
-
 
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
