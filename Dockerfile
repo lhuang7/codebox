@@ -37,11 +37,7 @@ RUN pwd
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sudo chsh -s $(which zsh)
 ADD ./.zshrc /home/plow/
-RUN source ./.zshrc
 
-# RUN sudo su root
-
-#RUN sudo su plow
 
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
@@ -57,10 +53,10 @@ RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 RUN export PATH=$PATH:$HOME/.ghc-7.8.3-rc11/bin:$PATH
 
 # Install cabal1.20.0.3
-RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
-RUN tar xvfz cabal.tar.gz
-RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
-RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
-ENV PATH /home/plow/.cabal/bin:$PATH
+# RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
+# RUN tar xvfz cabal.tar.gz
+# RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
+# RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
+# ENV PATH /home/plow/.cabal/bin:$PATH
 
 CMD su plow
