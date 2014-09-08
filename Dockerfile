@@ -56,7 +56,6 @@ RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 
 RUN export PATH=$PATH:$HOME/.ghc-7.8.3-rc11/bin:$PATH
-RUN ghc --version
 RUN su plow
 RUN ghc --version
 
