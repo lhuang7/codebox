@@ -56,6 +56,7 @@ RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
 
 RUN export PATH=$PATH:$HOME/.ghc-7.8.3-rc11/bin:$PATH
+RUN source /home/plow/.zshrc
 
 # Install cabal1.20.0.3
 RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
