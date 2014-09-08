@@ -12,7 +12,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN su plow
 
 # Switch to user directory
-RUN cd /home/plow/
+WORKDIR /home/plow
 
 # Set up basic folders
 RUN mkdir Desktop
@@ -34,10 +34,11 @@ RUN sudo apt-get install -y libtool
 # Install other tool
 RUN sudo apt-get install -y zsh
 RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-# RUN mv ~/.zshrc  ~/.zshrc.bkp
+RUN mv ~/.zshrc  ~/.zshrc.bkp
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sudo chsh -s $(which zsh) plow
 ADD ./.zshrc /home/plow/
+RUN zsh
 
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
