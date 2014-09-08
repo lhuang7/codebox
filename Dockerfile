@@ -31,8 +31,10 @@ RUN sudo apt-get install -y libtool
 
 # Install other tool
 RUN sudo apt-get install -y zsh
+RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+RUN mv ~/.zshrc  ~/.zshrc.bkp
+RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sudo chsh -s $(which zsh)
-RUN sudo wget --no-check-certificate http://install.ohmyz.sh -O - | sh
 ADD ./.zshrc /home/plow/
 RUN source ./.zshrc
 
