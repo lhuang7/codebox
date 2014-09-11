@@ -8,6 +8,12 @@ RUN adduser --disabled-password --gecos '' plow
 RUN adduser plow sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+# Set the locale
+RUN echo "LANG=C.UTF-8" > /etc/default/locale
+RUN echo "C.UTF-8 UTF-8" > /etc/locale.gen
+RUN sudo /usr/sbin/locale-gen
+ENV LANG C.UTF-8
+
 # Switch to new User
 # RUN su plow
 USER plow
@@ -17,11 +23,6 @@ WORKDIR /home/plow
 
 ENV HOME /home/plow
 
-# Set the locale
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8  
- 	
 # Set up basic folders
 RUN mkdir Desktop
 RUN mkdir Documents
@@ -80,8 +81,8 @@ ENV PATH /home/plow/.cabal/bin:$PATH
 # Add hackage plowtech
 #RUN echo remote-repo: hackage.plowtech.net:http://hackage.plowtech.net/packages/archive >> ~/.cabal/config;
 RUN cabal update
-# RUN cabal install yesod-bin --reinstall
-# RUN cabal install alex happy hi
+RUN cabal install yesod-bin --reinstall
+RUN cabal install alex happy hi
 
 USER root
 CMD su plow
