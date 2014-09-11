@@ -9,15 +9,19 @@ RUN adduser plow sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Switch to new User
-RUN su plow
+# RUN su plow
+USER plow
 
 # Switch to user directory
 WORKDIR /home/plow
 
 ENV HOME /home/plow
- 	
-ENV LC_ALL en_US.UTF8
 
+# Set the locale
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8  
+ 	
 # Set up basic folders
 RUN mkdir Desktop
 RUN mkdir Documents
@@ -41,7 +45,11 @@ RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /home/plow/.oh-my-zsh
 # RUN mv ~/.zshrc  ~/.zshrc.bkp
 # RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sudo chsh -s $(which zsh) plow
+
 ADD ./.zshrc /home/plow/
+RUN sudo chmod 700 $HOME/.zshrc
+RUN sudo chown -R plow:plow $HOME/.zshrc
+
 RUN zsh
 
 # Install libgmp3c2
@@ -54,16 +62,26 @@ RUN tar xvfj ghc.tar.bz2
 RUN cd ghc-7.8.3 && ./configure --prefix=/home/plow/.ghc-7.8.3-rc11 
 RUN cd ghc-7.8.3 && make install
 RUN rm -rf ghc.tar.bz2 ghc-7.8.3
-
-RUN export PATH=$PATH:/home/plow/.ghc-7.8.3-rc11/bin:$PATH
-RUN su plow
+RUN export PATH=/home/plow/.ghc-7.8.3-rc11/bin:$PATH
+ENV PATH /home/plow/.ghc-7.8.3-rc11/bin:$PATH
 RUN ghc --version
 
 # Install cabal1.20.0.3
-#RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
-#RUN tar xvfz cabal.tar.gz
-#RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
-#RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
-#ENV PATH /home/plow/.cabal/bin:$PATH
+RUN wget -O cabal.tar.gz http://hackage.haskell.org/package/cabal-install-1.20.0.3/cabal-install-1.20.0.3.tar.gz
+RUN tar xvfz cabal.tar.gz
+RUN cd cabal-install-1.20.0.3 && ./bootstrap.sh
+RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
+ENV PATH /home/plow/.cabal/bin:$PATH
 
+# Make sure cabal upto date
+# RUN cabal update
+# RUN cabal install cabal cabal-install 
+
+# Add hackage plowtech
+#RUN echo remote-repo: hackage.plowtech.net:http://hackage.plowtech.net/packages/archive >> ~/.cabal/config;
+RUN cabal update
+# RUN cabal install yesod-bin --reinstall
+# RUN cabal install alex happy hi
+
+USER root
 CMD su plow
