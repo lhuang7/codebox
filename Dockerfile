@@ -79,7 +79,7 @@ ENV PATH /home/plow/.cabal/bin:$PATH
 # RUN cabal install cabal cabal-install 
 
 # Add hackage plowtech
-#RUN echo remote-repo: hackage.plowtech.net:http://hackage.plowtech.net/packages/archive >> ~/.cabal/config;
+RUN echo remote-repo: hackage.plowtech.net:http://hackage.plowtech.net/packages/archive >> ~/.cabal/config;
 RUN cabal update
 RUN cabal install yesod-bin --reinstall
 RUN cabal install alex happy hi
