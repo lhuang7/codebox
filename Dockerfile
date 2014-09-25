@@ -84,5 +84,9 @@ RUN cabal update
 RUN cabal install yesod-bin --reinstall
 RUN cabal install alex happy hi
 
+RUN  sudo apt-get install libpcre3 libpcre3-dev
+RUN sudo apt-get install libmysqlclient-dev
+
 USER root
 CMD su plow
+
