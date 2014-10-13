@@ -1,4 +1,4 @@
-FROM ubuntu:14.10
+FROM ubuntu:14.04
 
 MAINTAINER lingpo.huang@plwotech.net
 ENV DEBIAN_FRONTEND noninteractive
@@ -56,6 +56,7 @@ RUN zsh
 # Install libgmp3c2
 RUN wget -c launchpadlibrarian.net/70575439/libgmp3c2_4.3.2%2Bdfsg-2ubuntu1_amd64.deb
 RUN sudo dpkg -i libgmp3c2_4.3.2*.deb
+RUN rm -rf libgmp3c2_4.3.2*.deb
 
 # Install ghc7.8.3
 RUN wget -O ghc.tar.bz2 http://www.haskell.org/ghc/dist/7.8.3/ghc-7.8.3-x86_64-unknown-linux-deb7.tar.bz2
@@ -75,17 +76,29 @@ RUN rm -rf cabal-install-1.20.0.3 cabal.tar.gz
 ENV PATH /home/plow/.cabal/bin:$PATH
 
 # Make sure cabal upto date
-# RUN cabal update
-# RUN cabal install cabal cabal-install 
+RUN cabal update
+RUN cabal install cabal cabal-install 
 
 # Add hackage plowtech
-RUN echo remote-repo: hackage.plowtech.net:http://hackage.plowtech.net/packages/archive >> ~/.cabal/config;
+RUN echo remote-repo: hackage.plowtech.net:http://hackage.plowtech.net/packages/archive >> ~/.cabal/config 
 RUN cabal update
 RUN cabal install yesod-bin --reinstall
 RUN cabal install alex happy hi
 
-RUN  sudo apt-get install libpcre3 libpcre3-dev
-RUN sudo apt-get install libmysqlclient-dev
+# Libraries for database
+RUN sudo apt-get install -y zlib1g-dev libpcre3 libpcre3-dev
+Run sudo apt-get install -y mysql-server
+RUN sudo apt-get install -y libmysqlclient-dev
+
+# Docker
+RUN sudo apt-get install -y docker.io
+RUN sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker 
+RUN sudo sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io
+RUN sudo update-rc.d docker.io defaults
+
+# Setup Database
+# RUN docker pull plowtechnologies/plow-mongo:latest
+# RUN docker run -d -p 27017:27017 plowtechnologies/plow-mongo
 
 USER root
 CMD su plow
